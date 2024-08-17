@@ -1,8 +1,31 @@
-FROM quay.io/toolbx-images/wolfi-toolbox:latest
+FROM cgr.dev/chainguard/wolfi-base:latest as base
+
+# Stolen from https://github.com/toolbx-images/images/blob/658f5e163acfe2592fb807ee5e25c059e4612e5b/wolfi/latest/Containerfile
+# Somehow the Distrobox Wolfi image isn't accessible right now
+COPY distrobox-packages /
+RUN apk update && \
+    apk upgrade && \
+    grep -v '^#' /distrobox-packages | xargs apk add
+RUN rm /distrobox-packages
+
+# Enable password less sudo
+# using sudoers instead of toolbox filename here, so that in case of rootful
+# distroboxes, the NOPASSWD can be deactivated for security reasons.
+RUN echo "%wheel ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/sudoers
+
+# Copy the os-release file
+RUN cp -p /etc/os-release /usr/lib/os-release
+
+# Clear out /home
+RUN rm -rf /home/* && mkdir /media
+
+FROM cgr.dev/chainguard/wolfi-base:latest
 
 LABEL com.github.containers.toolbox="true" \
     usage="This image is meant to be used with the toolbox or distrobox command" \
     summary="A small image containing common needed tools"
+
+COPY --from=base / /
 
 COPY extra-packages /
 RUN apk update && \
