@@ -1,0 +1,15 @@
+FROM quay.io/toolbx-images/alpine-toolbox:edge
+
+LABEL com.github.containers.toolbox="true" \
+    usage="This image is meant to be used with the toolbox or distrobox command" \
+    summary="A small image containing common needed tools. Alpine edition."
+
+RUN cat "@testing https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+
+COPY extra-packages /
+RUN apk update && \
+    apk upgrade && \
+    grep -v '^#' /extra-packages | xargs apk add
+RUN rm /extra-packages
+
+COPY wacan-config.fish /usr/share/fish/vendor_conf.d/
