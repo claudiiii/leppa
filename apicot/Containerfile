@@ -4,7 +4,7 @@ LABEL com.github.containers.toolbox="true" \
     usage="This image is meant to be used with the toolbox or distrobox command" \
     summary="A small image containing common needed tools. Alpine edition."
 
-RUN cat "@testing https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+RUN echo -n "@testing https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 
 COPY extra-packages /
 RUN apk update && \

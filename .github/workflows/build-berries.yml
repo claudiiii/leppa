@@ -50,6 +50,7 @@ jobs:
         with:
           containerfiles: |
             ./${{ matrix.berry }}/Containerfile
+          context: ${{ matrix.berry }}/
           image: ${{ matrix.berry }}
           tags: ${{ env.IMAGE_TAGS }}
           labels: ${{ steps.meta.outputs.labels }}
