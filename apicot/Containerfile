@@ -11,5 +11,3 @@ RUN apk update && \
     apk upgrade && \
     grep -v '^#' /extra-packages | xargs apk add
 RUN rm /extra-packages
-
-COPY wacan-config.fish /usr/share/fish/vendor_conf.d/
