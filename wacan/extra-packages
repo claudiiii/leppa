@@ -17,6 +17,7 @@ lazygit
 make
 nano
 neovim
+opentofu
 ripgrep
 sops
 starship
