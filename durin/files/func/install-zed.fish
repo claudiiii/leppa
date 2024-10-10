@@ -5,8 +5,8 @@ function install-zed --description "Install the Zed editor. Pass the channel as 
         printf "Installing Zed stable\n"
         /bin/bash /tmp/install-zed.sh
     else
-        printf "installing Zes %s\n" $channel
-        ZED_CHANNEL="$channel" /bin/bash /tmpinstall-zed.sh
+        printf "Installing Zed from channel: %s\n" $channel
+        ZED_CHANNEL="$channel" /bin/bash /tmp/install-zed.sh
     end
     printf "Zed was installed!\n"
 end
