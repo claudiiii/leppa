@@ -7,9 +7,10 @@ LABEL com.github.containers.toolbox="true" \
 COPY distrobox-packages /
 COPY extra-packages /
 
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
-    grep -v '^#' /distrobox-packages | xargs DEBIAN_FRONTEND=noninteractive apt-get -y install && \
-    grep -v '^#' /extra-packages | xargs DEBIAN_FRONTEND=noninteractive apt-get -y install
+    grep -v '^#' /distrobox-packages | xargs apt-get -y install && \
+    grep -v '^#' /extra-packages | xargs apt-get -y install
 RUN rm /extra-packages && rm /distrobox-packages
 
 RUN mkdir -p /usr/share/fish/vendor_conf.d/
