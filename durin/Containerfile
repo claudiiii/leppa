@@ -18,4 +18,5 @@ RUN apt-get update && \
 
 RUN mkdir -p /usr/share/fish/vendor_conf.d/
 COPY files/*.fish /usr/share/fish/vendor_conf.d/
-COPY Brewfile /etc/Brewfile
+
+COPY files/Brewfile /etc/Brewfile
