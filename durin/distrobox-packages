@@ -21,6 +21,7 @@ libkrb5-3
 libnss-mdns
 libnss-myhostname
 libvte-2.9*-common
+libvte-common
 locales
 lsof
 man-db

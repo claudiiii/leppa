@@ -4,14 +4,17 @@ LABEL com.github.containers.toolbox="true" \
     usage="This image is meant to be used with the toolbox or distrobox command" \
     summary="A small image containing common needed tools. Debian edition."
 
-COPY distrobox-packages /
-COPY extra-packages /
-
 ENV DEBIAN_FRONTEND=noninteractive
+
+COPY distrobox-packages /
 RUN apt-get update && \
-    grep -v '^#' /distrobox-packages | xargs apt-get -y install && \
-    grep -v '^#' /extra-packages | xargs apt-get -y install
-RUN rm /extra-packages && rm /distrobox-packages
+    apt-get install -y $(apt-cache show "$(cat /distrobox-packages)" 2> /dev/null | grep "Package:" | sort -u | cut -d' ' -f2-) && \
+    rm /distrobox-packages
+
+COPY extra-packages /
+RUN apt-get update && \
+    grep -v '^#' /extra-packages | xargs apt-get -y install && \
+    rm /extra-packages
 
 RUN mkdir -p /usr/share/fish/vendor_conf.d/
 COPY files/*.fish /usr/share/fish/vendor_conf.d/
