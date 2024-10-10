@@ -24,4 +24,7 @@ RUN locale-gen && \
 COPY files/Brewfile /etc/Brewfile
 
 RUN mkdir -p /usr/share/fish/vendor_conf.d/
-COPY files/*.fish /usr/share/fish/vendor_conf.d/
+COPY files/conf/*.fish /usr/share/fish/vendor_conf.d/
+
+RUN mkdir -p /usr/share/fish/vendor_functions.d/
+COPY files/func/*.fish /usr/share/fish/vendor_functions.d/
