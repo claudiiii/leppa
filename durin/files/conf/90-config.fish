@@ -1,6 +1,8 @@
 if status --is-interactive
     set -gx BAT_THEME ansi
 
+    fish_add_path -m ~/.local/bin
+
     # Abbreviations
     abbr --add -- g git
     abbr --add -- h hx
