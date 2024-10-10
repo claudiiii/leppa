@@ -16,7 +16,12 @@ RUN apt-get update && \
     grep -v '^#' /extra-packages | xargs apt-get -y install && \
     rm /extra-packages
 
-RUN mkdir -p /usr/share/fish/vendor_conf.d/
-COPY files/*.fish /usr/share/fish/vendor_conf.d/
+RUN sed -i "s|#.*en_US.UTF-8|en_US.UTF-8|g" /etc/locale.gen && \
+    sed -i "s|#.*de_DE.UTF-8|de_DE.UTF-8|g" /etc/locale.gen
+RUN locale-gen && \
+    dpkg-reconfigure locales
 
 COPY files/Brewfile /etc/Brewfile
+
+RUN mkdir -p /usr/share/fish/vendor_conf.d/
+COPY files/*.fish /usr/share/fish/vendor_conf.d/

@@ -1,4 +1,4 @@
-if (test "$(id -u)" -gt "0") and (test -d /home/linuxbrew/.linuxbrew)
+if test "$(id -u)" -gt "0"; and test -d /home/linuxbrew/.linuxbrew
     set -gx PATH $PATH /home/linuxbrew/.linuxbrew/bin
     set -gx HOMEBREW_PREFIX /home/linuxbrew/.linuxbrew
     set -gx HOMEBREW_CELLAR /home/linuxbrew/.linuxbrew/Cellar
