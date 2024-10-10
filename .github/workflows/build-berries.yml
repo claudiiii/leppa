@@ -27,6 +27,7 @@ jobs:
         berry:
           - apicot
           - wacan
+          - durin
       fail-fast: false
     steps:
       # Checkout push-to-registry action GitHub repository

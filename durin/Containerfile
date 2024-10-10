@@ -1,0 +1,17 @@
+FROM quay.io/toolbx-images/debian-toolbox:unstable
+
+LABEL com.github.containers.toolbox="true" \
+    usage="This image is meant to be used with the toolbox or distrobox command" \
+    summary="A small image containing common needed tools. Debian edition."
+
+COPY distrobox-packages /
+COPY extra-packages /
+
+RUN apt-get update && \
+    grep -v '^#' /distrobox-packages | xargs DEBIAN_FRONTEND=noninteractive apt-get -y install && \
+    grep -v '^#' /extra-packages | xargs DEBIAN_FRONTEND=noninteractive apt-get -y install
+RUN rm /extra-packages && rm /distrobox-packages
+
+RUN mkdir -p /usr/share/fish/vendor_conf.d/
+COPY files/*.fish /usr/share/fish/vendor_conf.d/
+COPY Brewfile /etc/Brewfile
